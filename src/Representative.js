@@ -1,7 +1,14 @@
 import cxs from 'cxs'
 import React from 'react'
 
-const style = cxs({ display: 'flex', alignItems: 'center' })
+import { defaultText } from './colors'
+
+const style = cxs({
+    alignItems: 'center',
+    display: 'flex',
+    fontFamily: 'Source Sans Pro',
+    color: defaultText
+})
 
 const Representative = ({
     firstName,
@@ -10,11 +17,11 @@ const Representative = ({
 }) =>
     <div className={style}>
         <img
-            width={50}
-            height={50}
+            width={80}
+            height={80}
             alt={`${firstName} ${lastName}`}
         />
-        <h2>{`${title}. ${firstName} ${lastName}`}</h2>
+        <h2 className={cxs({ marginLeft: '1em' })}>{`${title}. ${firstName} ${lastName}`}</h2>
     </div>
 
 export default Representative

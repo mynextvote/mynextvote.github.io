@@ -4,8 +4,32 @@ import React, { Component } from 'react'
 
 import ZipCodeInput from './ZipcodeInput'
 import Representative from './Representative'
-class App extends Component { state = {
-        year: 2018
+
+import { green } from './colors'
+
+const HeroBanner = () =>
+    <div className={cxs({ flex: '0 50%', textAlign: 'center', fontFamily: 'Merriweather' })}>
+        <h1>My Next Vote</h1>
+        <p>See when you vote next and who you'll be voting for or against.</p>
+    </div>
+
+const RepresentativeList = ({ reps }) =>
+    <ul className={cxs({ margin: 0, padding: 0, listStyleType: 'none' })}>
+        { reps.map(({ firstName, lastName, title }) =>
+            <li className={cxs({ marginBottom: '1em' })} key={lastName}>
+                <Representative
+                    firstName={firstName}
+                    lastName={lastName}
+                    title={title}
+                />
+            </li>
+        )}
+    </ul>
+
+class App extends Component {
+    state = {
+        year: 2018, // this should be unnecessary eventually
+        zipcode: ''
     }
 
     request = () => {
@@ -33,15 +57,26 @@ class App extends Component { state = {
             }))
 
     }
+
     render() {
+        const style = cxs({
+            // switch to horizontal layout
+            '@media (min-width: 40em)': {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                flex: 1
+            }
+        })
+
         const { election, zipcode } = this.state
+
         return (
-            <div className={cxs({ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', flex: 1 })}>
-                <div className={cxs({ flex: '0 50%', textAlign: 'center' })}>
-                    <h1>My Nevt Vote</h1>
-                    <p>See when you vote next and who you'll be voting for or against</p>
-                </div>
+            <div className={style}>
+                <HeroBanner />
                 <div className={cxs({ flex: '0 50%', padding: '2em' })}>
+
                     <div className={cxs({ display: 'flex', alignItems: 'center' })}>
                         <div className={cxs({ flex: 1 })}>
                             <ZipCodeInput
@@ -54,19 +89,10 @@ class App extends Component { state = {
 
                     { election && (
                         <div>
-                            <h1>Your next vote is the {election.name}</h1>
+                            <h1>Your next vote is the <span className={cxs({ color: green })}>{election.name}</span></h1>
                             <h3>Representatives up for re-election</h3>
-                            <ul>
-                                { election.reps && election.reps.map(({ firstName, lastName, title }) =>
-                                    <li key={lastName}>
-                                        <Representative
-                                            firstName={firstName}
-                                            lastName={lastName}
-                                            title={title}
-                                        />
-                                    </li>
-                                )}
-                            </ul>
+
+                            { election && <RepresentativeList reps={election.reps} /> }
                         </div>
                     )}
                 </div>
