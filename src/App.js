@@ -10,7 +10,7 @@ import { green } from './colors'
 const HeroBanner = () =>
     <div className={cxs({ flex: '0 50%', textAlign: 'center', fontFamily: 'Merriweather' })}>
         <h1>My Next Vote</h1>
-        <p>See when you vote next and who you'll be voting for or against.</p>
+        <p>Your next vote could make all the difference. <br /> See when you can vote next and who you'll be voting for or against.</p>
     </div>
 
 const RepresentativeList = ({ reps }) =>
@@ -77,24 +77,27 @@ class App extends Component {
                 <HeroBanner />
                 <div className={cxs({ flex: '0 50%', padding: '2em' })}>
 
-                    <div className={cxs({ display: 'flex', alignItems: 'center' })}>
-                        <div className={cxs({ flex: 1 })}>
-                            <ZipCodeInput
-                                zipcode={zipcode}
-                                onChange={zipcode => this.setState({ zipcode })}
-                            />
+                    <div className={cxs({ maxWidth: '42em', marginLeft: 'auto', marginRight: 'auto' })}>
+                        <div className={cxs({ display: 'flex', alignItems: 'center' })}>
+                            <div className={cxs({ flex: 1 })}>
+                                <ZipCodeInput
+                                    zipcode={zipcode}
+                                    onChange={zipcode => this.setState({ zipcode })}
+                                />
+                            </div>
+                            <button onClick={() => this.request()}>GO</button>
                         </div>
-                        <button onClick={() => this.request()}>GO</button>
+
+                        { election && (
+                            <div>
+                                <h1>Your next vote is the <span className={cxs({ color: green })}>{election.name}</span></h1>
+                                <h3>Representatives up for re-election</h3>
+                                { election && (
+                                    <RepresentativeList reps={election.reps} />
+                                )}
+                            </div>
+                        )}
                     </div>
-
-                    { election && (
-                        <div>
-                            <h1>Your next vote is the <span className={cxs({ color: green })}>{election.name}</span></h1>
-                            <h3>Representatives up for re-election</h3>
-
-                            { election && <RepresentativeList reps={election.reps} /> }
-                        </div>
-                    )}
                 </div>
             </div>
         )

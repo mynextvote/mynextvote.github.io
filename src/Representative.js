@@ -22,6 +22,7 @@ const Representative = ({
             alt={`${firstName} ${lastName}`}
         />
         <h2 className={cxs({ marginLeft: '1em' })}>{`${title}. ${firstName} ${lastName}`}</h2>
+        <span className={cxs({ marginLeft: 'auto' })}>Incumbent</span>
     </div>
 
 export default Representative
