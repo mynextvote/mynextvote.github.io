@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "gh-pages": "^0.12.0",
-    "react-scripts": "0.8.5"
+    "gh-pages": "^1.0.0",
+    "react-scripts": "1.0.14"
   },
   "homepage": "http://mynextvote.github.io/",
   "dependencies": {
-    "cxs": "^3.0.4",
+    "cxs": "^6.1.0",
     "isomorphic-fetch": "^2.2.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
